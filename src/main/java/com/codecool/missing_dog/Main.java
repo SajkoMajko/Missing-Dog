@@ -1,19 +1,24 @@
 package com.codecool.missing_dog;
 
+import com.codecool.missing_dog.model.Data;
+import com.codecool.missing_dog.model.DataGenerator;
+import com.codecool.missing_dog.view.View;
+import com.codecool.missing_dog.controller.Controller;
+import com.codecool.missing_dog.input.Input;
+import com.codecool.missing_dog.repository.DogRepository;
+import com.codecool.missing_dog.repository.OwnerRepository;
+
 public class Main {
-    /**
-     * Uncomment when DataGenerator functionality is implemented
-     */
     public static void main(String[] args) {
-//        Display display = new Display();
-//        Input input = new Input();
+        View view = new View();
+        Input input = new Input();
 
-//        Data data = new ModelFactory().createData();
+        Data data = new DataGenerator().createData();
 
-//        DogRepository dogRepository = new DogRepository(data.getDogList());
-//        OwnerRepository ownerRepository = new OwnerRepository(data.getOwnerList());
-//
-//        DogHotelRegistry dogHotelRegistry = new DogHotelRegistry(dogRepository, ownerRepository, display, input);
-//        dogHotelRegistry.run();
+        DogRepository dogRepository = new DogRepository(data.getDogList());
+        OwnerRepository ownerRepository = new OwnerRepository(data.getOwnerList());
+
+        Controller controller = new Controller(dogRepository, ownerRepository, view, input);
+        controller.run();
     }
 }

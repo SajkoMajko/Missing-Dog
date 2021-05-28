@@ -12,9 +12,9 @@ public class DataGenerator {
     private final static List<String> ownerLastNames = new ArrayList<>(Arrays.asList("Smith", "Johnson", "Williams", "Brown",
             "Jones", "Miller", "Davis", "Garcia", "Rodriguez", "Wilson"));
     private final static List<String> ownerFirstNames = new ArrayList<>(Arrays.asList("June", "Kellie", "Kirstin", "Moira",
-                    "Veronica", "Ellen", "Evelyn", "Hilary", "Janine", "Lesley", "Abigail", "Diana", "Erica", "Roslyn",
-                    "Annmarie", "David", "John", "Paul", "Mark", "James", "Andrew", "Scott", "Steven", "Robert",
-                    "Stephen", "William", "Craig", "Michael", "Stuart", "Christopher", "Sabrina"));
+            "Veronica", "Ellen", "Evelyn", "Hilary", "Janine", "Lesley", "Abigail", "Diana", "Erica", "Roslyn",
+            "Annmarie", "David", "John", "Paul", "Mark", "James", "Andrew", "Scott", "Steven", "Robert",
+            "Stephen", "William", "Craig", "Michael", "Stuart", "Christopher", "Sabrina"));
     private final static List<String> breeds = new ArrayList<>(Arrays.asList("BLUE GASCONY GRIFFON",
             "POLISH GREYHOUND", "NORMAN ARTESIEN BASSET", "PORTUGUESE WATER DOG",
             "WELSH CORGI (CARDIGAN)", "LABRADOR", "IRISH TERRIER", "YUGOSLAVIAN SHEPHERD DOG",
@@ -93,15 +93,22 @@ public class DataGenerator {
      * If Owner of given id is found
      * add the Dog from this iteration to their dogList
      * and set the Dog's Owner to that Owner.
-     * @param dogList list of randomly generated Dogs with no Owner assigned
+     *
+     * @param dogList   list of randomly generated Dogs with no Owner assigned
      * @param ownerList list of randomly generated Owners with empty List of Dogs
      */
     private void pairDogsWithOwners(List<Dog> dogList, List<Owner> ownerList) {
-        throw new UnsupportedOperationException("Not implemented yet");
-
-//        for (Dog dog : dogList) {
-//            int randomOwnerId = getRandomIntInRange(1, ownersAmount);
-//        }
+        for (Dog dog : dogList) {
+            int randomOwnerId = getRandomIntInRange(1, ownersAmount);
+            Optional<Owner> optionalOwner = ownerList
+                    .stream()
+                    .filter(o -> o.getId() == randomOwnerId)
+                    .findFirst();
+            optionalOwner.ifPresent(owner -> {
+                owner.addDogToList(dog);
+                dog.setOwner(owner);
+            });
+        }
     }
 
     private List<Dog> createDogList() {

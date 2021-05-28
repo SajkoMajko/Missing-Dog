@@ -1,6 +1,8 @@
 package com.codecool.missing_dog.model;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
 
 public class Owner {
     private final Set<Dog> dogSet = new HashSet<>();
@@ -30,12 +32,12 @@ public class Owner {
         return lastName;
     }
 
-    public String getFullName() {
-        return firstName + " " + lastName;
-    }
-
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public String getFullName() {
+        return firstName + " " + lastName;
     }
 
     public String getEmail() {
@@ -67,14 +69,11 @@ public class Owner {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Owner owner = (Owner) o;
-        return Objects.equals(dogSet, owner.dogSet) && Objects
-                .equals(id, owner.id) && Objects.equals(firstName, owner.firstName) && Objects
-                .equals(lastName, owner.lastName) && Objects.equals(email, owner.email) && Objects
-                .equals(phoneNo, owner.phoneNo);
+        return Objects.equals(id, owner.id) && Objects.equals(firstName, owner.firstName) && Objects.equals(lastName, owner.lastName) && Objects.equals(email, owner.email) && Objects.equals(phoneNo, owner.phoneNo);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(dogSet, id, firstName, lastName, email, phoneNo);
+        return Objects.hash(id, firstName, lastName, email, phoneNo);
     }
 }
